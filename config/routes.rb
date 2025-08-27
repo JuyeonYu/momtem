@@ -11,5 +11,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "recommand_items#index"
-  resources :recommand_items
+  resources :recommand_items do
+    resources :comments, only: [:create]
+  end 
 end
