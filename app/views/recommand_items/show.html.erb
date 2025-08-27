@@ -1,0 +1,10 @@
+<h1><%= @recommand_item.title %></h1>
+<h2><%= link_to '바로구매', @recommand_item.link, target: "_blank", rel: "noopener" %></h2>
+
+
+<h2>댓글</h2>
+
+<%= render "comments/form", recommand_item: @recommand_item, comment: Comment.new %>
+<ul id="comments">
+  <%= render @recommand_item.comments %>
+</ul>

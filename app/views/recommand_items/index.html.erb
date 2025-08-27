@@ -14,17 +14,16 @@
         <ol>
             <% items.each do |item| %>
             <li>
-                <h2><%= item.title %></h2>
-                <%= item.body %> 
-                <%= link_to item.link, item.link, target: "_blank", rel: "noopener"  %>
+              <h2><%= link_to item.title, recommand_item_path(item), data: { turbo_frame: "_top" } %></h2>
+              <%= item.body %> 
+              <%= link_to item.link, item.link, target: "_blank", rel: "noopener"  %>
 
-                <% if item.og_image.present? %>
-                <img src="<%= item.og_image %>" alt="" style="max-width:240px; height:auto;">
-                <% end %>
+              <% if item.og_image.present? %>
+              <img src="<%= item.og_image %>" alt="" style="max-width:240px; height:auto;">
+              <% end %>
 
 
-                <p><strong><%= item.og_title.presence || item.title %></strong></p>
-                <p><%= item.og_description.presence || item.body %></p>
+              <p><%= item.og_description.presence || item.body %></p>
             </li>
         <% end %>
 
