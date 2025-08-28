@@ -23,6 +23,12 @@
   </head>
 
   <body>
+    <div id="flash-messages">
+      <% flash.each do |type, message| %>
+        <% next if message.blank? %>
+        <div class="flash <%= type %>"><%= message %></div>
+      <% end %>
+    </div>
     <%= yield %>
   </body>
 </html>

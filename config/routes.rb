@@ -13,5 +13,7 @@ Rails.application.routes.draw do
   root "recommand_items#index"
   resources :recommand_items do
     resources :comments, only: [:create]
-  end 
+  end
+
+  resources :reviews
 end

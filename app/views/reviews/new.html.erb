@@ -1,0 +1,11 @@
+<h1>리뷰 작성 </h1>
+
+<%= form_with(model: @review, local: true) do |f| %>
+    <%= f.label :title, "제목" %>
+    <%= f.text_field :title %>
+
+    <%= f.label :body, "내용"%>
+    <%= f.rich_text_area :body %>
+
+    <%= f.submit "저장하기" %>
+<% end %>
