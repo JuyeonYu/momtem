@@ -438,34 +438,3 @@ trix-editor .attachment__metadata {
   padding: 0 !important;
   max-width: 100% !important;
 }
-
-trix-toolbar [data-trix-attribute="code"] {
-  display: none;
-}
-
-trix-toolbar [data-trix-attribute="heading"] {
-  display: none;
-}
-
-trix-toolbar [data-trix-attribute="quote"] {
-  display: none;
-}
-
-trix-toolbar [data-trix-attribute="decreaseNestingLevel"] {
-  display: none;
-}
-
-trix-toolbar [data-trix-attribute="increaseNestingLevel"] {
-  display: none;
-}
-
-trix-toolbar [data-trix-attribute="code"] {
-  display: none;
-}
-trix-toolbar [data-trix-attribute="strike"] {
-  display: none;
-}
-
-trix-toolbar [data-trix-attribute="italic"] {
-  display: none;
-}

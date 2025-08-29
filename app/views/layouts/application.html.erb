@@ -23,6 +23,14 @@
   </head>
 
   <body>
+    <header id="site-nav" data-turbo-permanent>
+      <nav>
+        <%= link_to "홈", root_path %>
+        <%= link_to "리뷰", reviews_path %>
+       <%= link_to "국민템랭킹", recommand_items_path %> 
+      </nav>
+    </header>
+
     <div id="flash-messages">
       <% flash.each do |type, message| %>
         <% next if message.blank? %>
