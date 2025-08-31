@@ -9,4 +9,16 @@ class Review < ApplicationRecord
     # attachables 중 ActiveStorage::Blob 타입만 골라서 첫 번째 이미지 반환
     content.attachables.grep(ActiveStorage::Blob).find(&:image?)
   end
+
+    has_many :comments, as: :commentable, dependent: :destroy
+    has_one :post, as: :postable, dependent: :destroy
+
+    after_create :create_post_record
+
+    private
+
+    def create_post_record
+      create_post!
+    end
+
 end

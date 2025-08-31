@@ -1,9 +1,12 @@
 
 
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<h1>홈</h1>
 
-
-<main>
-    contents by nav
-</main>
+<section class="quick-links">
+  <h2>바로 가기</h2>
+  <ul>
+    <li><%= link_to "리뷰 게시판", reviews_path %></li>
+    <li><%= link_to "국민템랭킹", recommand_items_path %></li>
+    <li><%= link_to "대나무숲", bamboos_path %></li>
+  </ul>
+</section>

@@ -1,5 +1,5 @@
 class Comment < ApplicationRecord
-  belongs_to :recommand_item
+  belongs_to :commentable, polymorphic: true
 
   validates :body, presence: true
 end

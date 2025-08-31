@@ -23,10 +23,6 @@
               <% if (blob = review.first_image_blob) %>
                 <%= image_tag blob.variant(resize_to_fill: [420, 280]).processed,
                               alt: review.title %>
-              <% else %>
-                <div class="item-thumb__placeholder">
-                  <%= image_tag "placeholder.png", alt: "썸네일 없음" %>
-                </div>
               <% end %>
             </figure>
 

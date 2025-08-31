@@ -1,0 +1,16 @@
+<h1>대나무숲 글 쓰기</h1>
+
+<%= form_with(model: @bamboo, local: true) do |f| %>
+  <div>
+    <%= f.label :title, '제목' %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div>
+    <%= f.label :body, '내용' %>
+    <%= f.text_area :body, rows: 8 %>
+  </div>
+
+  <%= f.submit '등록' %>
+<% end %>
+

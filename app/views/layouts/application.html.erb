@@ -27,7 +27,16 @@
       <nav>
         <%= link_to "홈", root_path %>
         <%= link_to "리뷰", reviews_path %>
-       <%= link_to "국민템랭킹", recommand_items_path %> 
+        <%= link_to "국민템랭킹", recommand_items_path %> 
+        <%= link_to "대나무숲", bamboos_path %>
+        <span class="auth">
+          <% if user_signed_in? %>
+            <span>안녕하세요, <%= current_user.name.presence || current_user.email %></span>
+            <%= button_to "로그아웃", destroy_user_session_path, method: :delete, form: { data: { turbo_confirm: "로그아웃 하시겠습니까?" } } %>
+          <% else %>
+            <%= link_to "Google로 로그인", user_google_oauth2_omniauth_authorize_path %>
+          <% end %>
+        </span>
       </nav>
     </header>
 

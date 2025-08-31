@@ -1,4 +1,4 @@
-<%= form_with(model: [recommand_item, comment], local: true) do |f| %>
+<%= form_with(model: [commentable, comment], local: true) do |f| %>
   <%= f.text_area :body %>
   <%= f.submit "댓글달기" %>
 <% end %>

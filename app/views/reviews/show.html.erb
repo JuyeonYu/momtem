@@ -1,3 +1,11 @@
 <h1>리뷰 보기</h1>
 <%= @review.title %>
 <%= @review.body %>
+
+
+<h2>댓글</h2>
+
+<%= render "comments/form", commentable: @review, comment: Comment.new %>
+<ul id="comments">
+  <%= render @review.comments %>
+</ul>

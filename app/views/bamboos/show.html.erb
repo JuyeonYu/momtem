@@ -1,0 +1,9 @@
+<h1><%= @bamboo.title.presence || '무제' %></h1>
+<p><%= simple_format(@bamboo.body) %></p>
+
+<h2>댓글</h2>
+<%= render "comments/form", commentable: @bamboo, comment: Comment.new %>
+<ul id="comments">
+  <%= render @bamboo.comments %>
+  </ul>
+

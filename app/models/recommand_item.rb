@@ -12,13 +12,22 @@ class RecommandItem < ApplicationRecord
 
     self.og_title = preview&.title
     self.og_description = preview&.description
-    self.og_image = preview&.images&.first&.scr&.to_s
-    self! if persisted?
+    self.og_image = preview&.images&.first&.src&.to_s
+    save! if persisted?
     self
   rescue StandardError => e
     Rails.logger.warn("[og] fetch failed for #{link}: #{e.class} - #{e.message}")
     self
   end
 
-  has_many :comments, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
+  has_one :post, as: :postable, dependent: :destroy
+
+  after_create :create_post_record
+
+  private
+
+  def create_post_record
+    create_post!
+  end
 end

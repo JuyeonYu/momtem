@@ -4,7 +4,7 @@
 
 <h2>댓글</h2>
 
-<%= render "comments/form", recommand_item: @recommand_item, comment: Comment.new %>
+<%= render "comments/form", commentable: @recommand_item, comment: Comment.new %>
 <ul id="comments">
   <%= render @recommand_item.comments %>
 </ul>

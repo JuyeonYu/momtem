@@ -17,5 +17,14 @@ Rails.application.routes.draw do
     resources :comments, only: [:create]
   end
 
-  resources :reviews
+  resources :reviews do
+    resources :comments, only: [:create]
+  end
+
+  resources :bamboos do
+    resources :comments, only: [:create]
+  end
+
+  # Devise + OmniAuth
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 end

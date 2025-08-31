@@ -6,13 +6,16 @@ class CommentsController < ApplicationController
 
   def create
     Rails.logger.info("[Comments#create] params=#{params.to_unsafe_h}")
-    @recommand_item = RecommandItem.find(params[:recommand_item_id])
-    @comment = @recommand_item.comments.build(comment_params)
+    parent = find_commentable!
+    @comment = parent.comments.build(comment_params)
 
     if @comment.save
-      redirect_to @recommand_item, notice: '댓글이 등록되었습니다.', status: :see_other
+      redirect_to parent, notice: '댓글이 등록되었습니다.', status: :see_other
     else
-      render 'recommand_items/show', status: :unprocessable_entity
+      # Render the appropriate show template based on parent type
+      template = "#{parent.model_name.collection}/show"
+      instance_variable_set("@#{parent.model_name.singular}", parent)
+      render template, status: :unprocessable_entity
     end
   end
 
@@ -20,5 +23,17 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:body)
+  end
+
+  def find_commentable!
+    if params[:recommand_item_id]
+      RecommandItem.find(params[:recommand_item_id])
+    elsif params[:review_id]
+      Review.find(params[:review_id])
+    elsif params[:bamboo_id]
+      Bamboo.find(params[:bamboo_id])
+    else
+      raise ActiveRecord::RecordNotFound, "Missing parent for comment"
+    end
   end
 end
