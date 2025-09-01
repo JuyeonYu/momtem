@@ -5,17 +5,24 @@ class MakeCommentsPolymorphicProperly < ActiveRecord::Migration[8.0]
     add_column :comments, :commentable_id, :bigint
     add_index :comments, [:commentable_type, :commentable_id]
 
-    # 2) Backfill from existing recommand_item_id
-    execute <<~SQL.squish
-      UPDATE comments
-      SET commentable_type = 'RecommandItem',
-          commentable_id   = recommand_item_id
-      WHERE recommand_item_id IS NOT NULL
-    SQL
+    # 2) Backfill from existing recommand_item_id (if it exists)
+    backfilled = false
+    if column_exists?(:comments, :recommand_item_id)
+      execute <<~SQL.squish
+        UPDATE comments
+        SET commentable_type = 'RecommandItem',
+            commentable_id   = recommand_item_id
+        WHERE recommand_item_id IS NOT NULL
+      SQL
+      backfilled = true
+    end
 
-    # 3) Enforce NOT NULL now that data is backfilled
-    change_column_null :comments, :commentable_type, false
-    change_column_null :comments, :commentable_id, false
+    # 3) Enforce NOT NULL if safe (after backfill or table empty)
+    comments_count = select_value("SELECT COUNT(*) FROM comments").to_i
+    if backfilled || comments_count == 0
+      change_column_null :comments, :commentable_type, false
+      change_column_null :comments, :commentable_id, false
+    end
 
     # 4) Drop old foreign key and column
     if foreign_key_exists?(:comments, :recommand_items)
@@ -51,4 +58,3 @@ class MakeCommentsPolymorphicProperly < ActiveRecord::Migration[8.0]
     remove_column :comments, :commentable_id if column_exists?(:comments, :commentable_id)
   end
 end
-

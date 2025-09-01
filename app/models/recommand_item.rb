@@ -1,4 +1,5 @@
 class RecommandItem < ApplicationRecord
+  belongs_to :user
   def fetch_and_cache_og!
     return if link.blank?
 

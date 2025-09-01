@@ -1,4 +1,5 @@
 class RecommandItemsController < ApplicationController
+  before_action :require_login, only: [:new, :create]
   before_action :set_recommand_item, only: [:show]
 
   def index
@@ -10,6 +11,20 @@ class RecommandItemsController < ApplicationController
   end
 
   def show; end
+
+  def new
+    @recommand_item = RecommandItem.new
+  end
+
+  def create
+    @recommand_item = RecommandItem.new(recommand_item_params)
+    @recommand_item.user = current_user
+    if @recommand_item.save
+      redirect_to @recommand_item, notice: '국민템이 등록되었습니다.'
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
 
   private
 

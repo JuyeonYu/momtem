@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  before_action :require_login, only: [:create]
 
   def index
     @comments = Comment.all
@@ -8,6 +9,7 @@ class CommentsController < ApplicationController
     Rails.logger.info("[Comments#create] params=#{params.to_unsafe_h}")
     parent = find_commentable!
     @comment = parent.comments.build(comment_params)
+    @comment.user = current_user
 
     if @comment.save
       redirect_to parent, notice: '댓글이 등록되었습니다.', status: :see_other

@@ -27,4 +27,12 @@ Rails.application.routes.draw do
 
   # Devise + OmniAuth
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+
+  # Ensure logout path helper is available consistently
+  devise_scope :user do
+    delete 'users/sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
+  end
+
+  # Login bridge page that auto-posts to Google OAuth (for popup + POST-only)
+  get 'login', to: 'auth#login', as: :login
 end

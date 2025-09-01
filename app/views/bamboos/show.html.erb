@@ -1,4 +1,5 @@
 <h1><%= @bamboo.title.presence || '무제' %></h1>
+<p>작성자: <strong><%= @bamboo.user&.name.presence || '익명' %></strong></p>
 <p><%= simple_format(@bamboo.body) %></p>
 
 <h2>댓글</h2>
@@ -6,4 +7,3 @@
 <ul id="comments">
   <%= render @bamboo.comments %>
   </ul>
-

@@ -1,4 +1,6 @@
 class ReviewsController < ApplicationController
+    before_action :require_login, only: [:new, :create]
+
     def index
         @reviews = Review.with_rich_text_body_and_embeds
     end
@@ -9,6 +11,7 @@ class ReviewsController < ApplicationController
 
     def create
         @review = Review.new(review_params)
+        @review.user = current_user
         if @review.save
             redirect_to reviews_path, notice: "리뷰가 작성되었습니다."
         else

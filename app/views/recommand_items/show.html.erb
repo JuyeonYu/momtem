@@ -1,4 +1,5 @@
 <h1><%= @recommand_item.title %></h1>
+<p>작성자: <strong><%= @recommand_item.user&.name.presence || '익명' %></strong></p>
 <h2><%= link_to '바로구매', @recommand_item.link, target: "_blank", rel: "noopener" %></h2>
 
 

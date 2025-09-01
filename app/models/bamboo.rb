@@ -1,4 +1,5 @@
 class Bamboo < ApplicationRecord
+  belongs_to :user
   has_many :comments, as: :commentable, dependent: :destroy
   has_one :post, as: :postable, dependent: :destroy
 
@@ -12,4 +13,3 @@ class Bamboo < ApplicationRecord
     create_post!
   end
 end
-

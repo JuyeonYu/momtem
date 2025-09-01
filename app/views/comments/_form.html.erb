@@ -1,4 +1,10 @@
-<%= form_with(model: [commentable, comment], local: true) do |f| %>
-  <%= f.text_area :body %>
-  <%= f.submit "댓글달기" %>
+<% if user_signed_in? %>
+  <%= form_with(model: [commentable, comment], local: true) do |f| %>
+    <p>작성자: <strong><%= current_user.name.presence || current_user.email %></strong></p>
+    <%= f.text_area :body %>
+    <%= f.submit "댓글달기" %>
+  <% end %>
+<% else %>
+  <p>댓글을 작성하려면 로그인이 필요합니다.</p>
+  <%= button_to "Google로 로그인", user_google_oauth2_omniauth_authorize_path, method: :post, form: { data: { turbo_confirm: "로그인이 필요합니다. 로그인하시겠습니까?", turbo: false } } %>
 <% end %>

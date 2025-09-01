@@ -1,0 +1,19 @@
+<script>
+  alert('로그인이 필요합니다. 로그인 화면으로 이동합니다.');
+  window.addEventListener('DOMContentLoaded', function() {
+    var form = document.getElementById('oauth-login-form');
+    if (form) form.submit();
+  });
+  // Fallback timeout submit
+  setTimeout(function(){
+    var form = document.getElementById('oauth-login-form');
+    if (form) form.submit();
+  }, 500);
+</script>
+
+<noscript>
+  <p>로그인이 필요합니다. 아래 버튼을 눌러 로그인하세요.</p>
+</noscript>
+
+<%= button_to 'Google로 로그인', user_google_oauth2_omniauth_authorize_path, method: :post, id: 'oauth-login-form', form: { data: { turbo: false } } %>
+
