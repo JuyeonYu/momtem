@@ -1,5 +1,5 @@
 <h1><%= @recommand_item.title %></h1>
-<p>작성자: <strong><%= @recommand_item.user&.name.presence || '익명' %></strong></p>
+<p>작성자: <strong><%= @recommand_item.user&.display_name || '익명' %></strong></p>
 <p>❤️ <%= @recommand_item.likes_count %> · 💬 <%= @recommand_item.comments_count %></p>
 <p>
   <% if user_signed_in? %>

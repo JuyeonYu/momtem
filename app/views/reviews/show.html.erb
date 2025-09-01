@@ -12,7 +12,7 @@
     <%= button_to '좋아요', review_like_path(@review), method: :post, form: { data: { turbo_confirm: '로그인이 필요합니다. 로그인하시겠습니까?', turbo: false } } %>
   <% end %>
 </p>
-<p>작성자: <strong><%= @review.user&.name.presence || '익명' %></strong></p>
+<p>작성자: <strong><%= @review.user&.display_name || '익명' %></strong></p>
 <div>
   <%= @review.body %>
   <%# If using ActionText, consider rendering rich text properly %>

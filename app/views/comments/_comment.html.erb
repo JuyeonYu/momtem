@@ -1,5 +1,5 @@
 <li>
-  <strong><%= comment.user&.name.presence || '익명' %></strong>
+  <strong><%= comment.user&.display_name || '익명' %></strong>
   <div><%= comment.body %></div>
   <div>
     <span>❤️ <%= comment.likes_count %></span>

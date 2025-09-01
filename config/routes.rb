@@ -45,4 +45,5 @@ Rails.application.routes.draw do
 
   # My Page
   get 'me', to: 'profiles#show', as: :my_page
+  patch 'me', to: 'profiles#update'
 end

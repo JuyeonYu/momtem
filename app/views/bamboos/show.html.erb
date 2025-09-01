@@ -1,5 +1,5 @@
 <h1><%= @bamboo.title.presence || '무제' %></h1>
-<p>작성자: <strong><%= @bamboo.user&.name.presence || '익명' %></strong></p>
+<p>작성자: <strong><%= @bamboo.user&.display_name || '익명' %></strong></p>
 <p>❤️ <%= @bamboo.likes_count %> · 💬 <%= @bamboo.comments_count %></p>
 <p>
   <% if user_signed_in? %>

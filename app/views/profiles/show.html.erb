@@ -3,7 +3,17 @@
 <section>
   <h2>내 정보</h2>
   <p>
-    이름: <strong><%= @user.name.presence || '이름 없음' %></strong><br>
+    닉네임: <strong><%= @user.display_name %></strong>
+  </p>
+  <%= form_with url: my_page_path, method: :patch, local: true do |f| %>
+    <div>
+      <label for="user_nickname">닉네임 변경</label>
+      <%= text_field_tag 'user[nickname]', @user.nickname, maxlength: 30 %>
+      <%= submit_tag '저장' %>
+    </div>
+  <% end %>
+  <p>
+    (실제 이름: <%= @user.name.presence || '-' %>)<br>
     이메일: <%= @user.email.presence || '-' %>
   </p>
 </section>
@@ -75,4 +85,3 @@
     <p>작성한 댓글이 없습니다.</p>
   <% end %>
 </section>
-

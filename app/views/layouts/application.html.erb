@@ -31,7 +31,7 @@
         <%= link_to "대나무숲", bamboos_path %>
         <span class="auth">
           <% if user_signed_in? %>
-            <span>안녕하세요, <%= link_to (current_user.name.presence || current_user.email), my_page_path %></span>
+            <span>안녕하세요, <%= link_to current_user.display_name, my_page_path %></span>
             <%= button_to "로그아웃", destroy_user_session_path, method: :delete, form: { data: { turbo_confirm: "로그아웃 하시겠습니까?" } } %>
           <% else %>
             <%= button_to "Google로 로그인", user_google_oauth2_omniauth_authorize_path, method: :post, form: { data: { turbo: false } } %>

@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
   <%= form_with(model: [commentable, comment], local: true) do |f| %>
-    <p>작성자: <strong><%= current_user.name.presence || current_user.email %></strong></p>
+    <p>작성자: <strong><%= current_user.display_name %></strong></p>
     <%= f.text_area :body %>
     <%= f.submit "댓글달기" %>
   <% end %>
