@@ -1,5 +1,6 @@
 class Review < ApplicationRecord
   has_rich_text :body
+  has_many :likes, as: :likeable, dependent: :destroy
   belongs_to :user
 
   # 리치텍스트 본문에서 첫 번째 이미지 Blob 추출

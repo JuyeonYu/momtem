@@ -28,6 +28,9 @@
 
             <div class="item-content">
               <h2 class="item-title"><%= review.title %></h2>
+              <p class="item-meta">
+                ❤️ <%= review.likes_count %> · 💬 <%= review.comments_count %>
+              </p>
               <p class="item-summary">
                 <%= truncate(strip_tags(review.body.to_s), length: 80) %>
               </p>

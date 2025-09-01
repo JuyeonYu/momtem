@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   devise :omniauthable, omniauth_providers: [:google_oauth2]
+  has_many :likes, dependent: :destroy
 
   validates :provider, :uid, presence: true
   validates :uid, uniqueness: { scope: :provider }
@@ -11,5 +12,10 @@ class User < ApplicationRecord
       user.image = auth.info.image
       user.save!
     end
+  end
+
+  def liked?(record)
+    return false unless record
+    likes.exists?(likeable: record)
   end
 end

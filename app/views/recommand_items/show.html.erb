@@ -1,5 +1,17 @@
 <h1><%= @recommand_item.title %></h1>
 <p>작성자: <strong><%= @recommand_item.user&.name.presence || '익명' %></strong></p>
+<p>❤️ <%= @recommand_item.likes_count %> · 💬 <%= @recommand_item.comments_count %></p>
+<p>
+  <% if user_signed_in? %>
+    <% if current_user.liked?(@recommand_item) %>
+      <%= button_to '좋아요 취소', recommand_item_like_path(@recommand_item), method: :delete %>
+    <% else %>
+      <%= button_to '좋아요', recommand_item_like_path(@recommand_item), method: :post %>
+    <% end %>
+  <% else %>
+    <%= button_to '좋아요', recommand_item_like_path(@recommand_item), method: :post, form: { data: { turbo_confirm: '로그인이 필요합니다. 로그인하시겠습니까?', turbo: false } } %>
+  <% end %>
+</p>
 <h2><%= link_to '바로구매', @recommand_item.link, target: "_blank", rel: "noopener" %></h2>
 
 

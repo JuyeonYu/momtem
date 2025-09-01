@@ -1,5 +1,17 @@
 <h1>리뷰 보기</h1>
 <h2><%= @review.title %></h2>
+<p>❤️ <%= @review.likes_count %> · 💬 <%= @review.comments_count %></p>
+<p>
+  <% if user_signed_in? %>
+    <% if current_user.liked?(@review) %>
+      <%= button_to '좋아요 취소', review_like_path(@review), method: :delete %>
+    <% else %>
+      <%= button_to '좋아요', review_like_path(@review), method: :post %>
+    <% end %>
+  <% else %>
+    <%= button_to '좋아요', review_like_path(@review), method: :post, form: { data: { turbo_confirm: '로그인이 필요합니다. 로그인하시겠습니까?', turbo: false } } %>
+  <% end %>
+</p>
 <p>작성자: <strong><%= @review.user&.name.presence || '익명' %></strong></p>
 <div>
   <%= @review.body %>

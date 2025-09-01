@@ -1,5 +1,6 @@
 class RecommandItem < ApplicationRecord
   belongs_to :user
+  has_many :likes, as: :likeable, dependent: :destroy
   def fetch_and_cache_og!
     return if link.blank?
 

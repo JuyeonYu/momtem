@@ -1,5 +1,17 @@
 <h1><%= @bamboo.title.presence || '무제' %></h1>
 <p>작성자: <strong><%= @bamboo.user&.name.presence || '익명' %></strong></p>
+<p>❤️ <%= @bamboo.likes_count %> · 💬 <%= @bamboo.comments_count %></p>
+<p>
+  <% if user_signed_in? %>
+    <% if current_user.liked?(@bamboo) %>
+      <%= button_to '좋아요 취소', bamboo_like_path(@bamboo), method: :delete %>
+    <% else %>
+      <%= button_to '좋아요', bamboo_like_path(@bamboo), method: :post %>
+    <% end %>
+  <% else %>
+    <%= button_to '좋아요', bamboo_like_path(@bamboo), method: :post, form: { data: { turbo_confirm: '로그인이 필요합니다. 로그인하시겠습니까?', turbo: false } } %>
+  <% end %>
+</p>
 <p><%= simple_format(@bamboo.body) %></p>
 
 <h2>댓글</h2>

@@ -15,14 +15,21 @@ Rails.application.routes.draw do
 
   resources :recommand_items do
     resources :comments, only: [:create]
+    resource :like, only: [:create, :destroy], controller: 'likes'
   end
 
   resources :reviews do
     resources :comments, only: [:create]
+    resource :like, only: [:create, :destroy], controller: 'likes'
   end
 
   resources :bamboos do
     resources :comments, only: [:create]
+    resource :like, only: [:create, :destroy], controller: 'likes'
+  end
+
+  resources :comments, only: [] do
+    resource :like, only: [:create, :destroy], controller: 'likes'
   end
 
   # Devise + OmniAuth
@@ -35,4 +42,7 @@ Rails.application.routes.draw do
 
   # Login bridge page that auto-posts to Google OAuth (for popup + POST-only)
   get 'login', to: 'auth#login', as: :login
+
+  # My Page
+  get 'me', to: 'profiles#show', as: :my_page
 end

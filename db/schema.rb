@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_01_011500) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_01_020000) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -55,6 +55,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_01_011500) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.integer "likes_count", default: 0, null: false
+    t.integer "comments_count", default: 0, null: false
     t.index ["user_id"], name: "index_bamboos_on_user_id"
   end
 
@@ -62,14 +64,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_01_011500) do
     t.string "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "item_type", null: false
-    t.bigint "item_id", null: false
     t.string "commentable_type"
     t.bigint "commentable_id"
     t.integer "user_id"
+    t.integer "likes_count", default: 0, null: false
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
-    t.index ["item_type", "item_id"], name: "index_comments_on_item_type_and_item_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "likeable_type", null: false
+    t.bigint "likeable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable_type_and_likeable_id"
+    t.index ["user_id", "likeable_type", "likeable_id"], name: "index_likes_on_user_and_likeable", unique: true
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -91,6 +102,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_01_011500) do
     t.text "og_description"
     t.text "og_image"
     t.integer "user_id"
+    t.integer "likes_count", default: 0, null: false
+    t.integer "comments_count", default: 0, null: false
     t.index ["user_id"], name: "index_recommand_items_on_user_id"
   end
 
@@ -100,6 +113,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_01_011500) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.integer "likes_count", default: 0, null: false
+    t.integer "comments_count", default: 0, null: false
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
@@ -119,6 +134,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_01_011500) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "bamboos", "users"
   add_foreign_key "comments", "users"
+  add_foreign_key "likes", "users"
   add_foreign_key "recommand_items", "users"
   add_foreign_key "reviews", "users"
 end
